@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import { fetchCurrencies, type CurrencyInfo } from './api/fetchCurrencies'
 import { getRate } from './api/getRates'
 import { convertAmount } from './utils/convertAmount'
-import { currencyOptionLabel } from './utils/currencyOptionLabel'
+import { CurrencySelect } from './CurrencySelect'
 import './App.css'
 
 const MAX_INTEGER_DIGITS = 12
@@ -205,29 +205,17 @@ function App() {
             <label className="label" htmlFor="from">
               From
             </label>
-            {catalogReady ? (
-              <select
-                id="from"
-                className="select"
-                value={from}
-                onChange={(e) => {
-                  setCommittedResult(null)
-                  setFrom(e.target.value)
-                }}
-              >
-                {currencyList.map((c) => (
-                  <option key={c.code} value={c.code} disabled={c.code === to}>
-                    {currencyOptionLabel(c.code)}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <select id="from" className="select" disabled value="">
-                <option value="">
-                  {catalogBusy ? 'Loading currencies…' : 'Currencies unavailable'}
-                </option>
-              </select>
-            )}
+            <CurrencySelect
+              id="from"
+              value={from}
+              currencies={currencyList}
+              disabledCode={to}
+              disabled={!catalogReady}
+              onChange={(code) => {
+                setCommittedResult(null)
+                setFrom(code)
+              }}
+            />
           </div>
 
           <button
@@ -256,29 +244,17 @@ function App() {
             <label className="label" htmlFor="to">
               To
             </label>
-            {catalogReady ? (
-              <select
-                id="to"
-                className="select"
-                value={to}
-                onChange={(e) => {
-                  setCommittedResult(null)
-                  setTo(e.target.value)
-                }}
-              >
-                {currencyList.map((c) => (
-                  <option key={c.code} value={c.code} disabled={c.code === from}>
-                    {currencyOptionLabel(c.code)}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <select id="to" className="select" disabled value="">
-                <option value="">
-                  {catalogBusy ? 'Loading currencies…' : 'Currencies unavailable'}
-                </option>
-              </select>
-            )}
+            <CurrencySelect
+              id="to"
+              value={to}
+              currencies={currencyList}
+              disabledCode={from}
+              disabled={!catalogReady}
+              onChange={(code) => {
+                setCommittedResult(null)
+                setTo(code)
+              }}
+            />
           </div>
         </div>
 
@@ -332,4 +308,3 @@ function App() {
 }
 
 export default App
-
