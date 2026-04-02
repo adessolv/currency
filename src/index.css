@@ -1,0 +1,38 @@
+:root {
+  --page-bg: #7068e8;
+  --card-bg: #ffffff;
+  --text: #0a0a0a;
+  --muted: #5c5c5c;
+  --border: #d1d1d6;
+  --primary: #7068e8;
+  --primary-hover: #5d56d4;
+  --focus-ring: rgba(255, 255, 255, 0.9);
+
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.45;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--page-bg);
+  color: var(--text);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
